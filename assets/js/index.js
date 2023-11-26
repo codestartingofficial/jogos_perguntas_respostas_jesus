@@ -176,12 +176,32 @@ const main = () => {
     div_centro.appendChild(div);
 }
 
-function isTouchDevice() {
-    alert("oi")
+// touchstart handler
+function process_touchstart(ev) {
+    // Use the event's data to call out to the appropriate gesture handlers
+    switch (ev.touches.length) {
+      case 1:
+        handle_one_touch(ev);
+        alert("oi")
+        break;
+      case 2:
+        handle_two_touches(ev);
+        alert("oi 2")
+        break;
+      case 3:
+        handle_three_touches(ev);
+        alert("oi 3")
+        break;
+      default:
+        gesture_not_supported(ev);
+        alert("defayuk")
+        break;
+    }
   }
 
 main();
 
 document.addEventListener('keydown', jump);
 
-document.addEventListener('ontouchstart', isTouchDevice);
+// Register touch event handlers
+document.addEventListener("touchstart", process_touchstart, false);
