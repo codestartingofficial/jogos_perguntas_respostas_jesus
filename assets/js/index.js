@@ -176,6 +176,12 @@ const main = () => {
     div_centro.appendChild(div);
 }
 
+function isTouchDevice() {
+    alert("oi")
+  }
+
 main();
 
 document.addEventListener('keydown', jump);
+
+document.addEventListener('ontouchstart', jump);
