@@ -184,4 +184,4 @@ main();
 
 document.addEventListener('keydown', jump);
 
-document.addEventListener('ontouchstart', jump);
+document.addEventListener('ontouchstart', isTouchDevice);
