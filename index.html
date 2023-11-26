@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=500, initial-scale=1.0">
+    <title>Jogo do Mario</title>
+    <link rel="stylesheet" href="./assets/css/default.css">
+</head>
+<body>
+
+    <div class="game-board">
+        <div class="score">PONTUAÇAO:<span>0</span></div>
+        <img src="./assets/imagens/clouds.png" class="clouds" />
+        <img src="./assets/imagens/mario.gif" class="mario"/>
+        <img src="./assets/imagens/pipe.png" alt="" class="pipe"/>
+    </div>
+    
+    <div class="centro">
+        <div class="conteudo">
+                <span class="pergunta_especifica">
+                    ...
+                </span>
+                <input type="hidden" id="id_pergunta">
+                <div class="pergunta_choose">
+                    <!-- <div>
+                        <input type="radio" id="pergunta1" name="perguntas" value="jose" />
+                        <label for="pergunta1">Jose</label>
+                    </div> -->
+
+                </div>
+                <div class="pergunta_send">
+                    <button id="enviar_resposta" onclick="enviarResposta()">Enviar Resposta</button>
+                </div>
+        </div>
+        <!-- <div class="conteudo_pausado">
+            <button id="iniciar_jogo" onclick="iniciarJogo()">INICIAR JOGO</button>
+        </div> -->
+    </div>
+    
+    <script type="text/javascript" src="./assets/js/data.js" defer></script>
+    <script src="./assets/js/index.js" defer></script>
+    
+</body>
+</html>

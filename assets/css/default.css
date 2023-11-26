@@ -1,0 +1,175 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.game-board {
+    width: 100%;
+    height: 100%;
+    /* border:  1px solid #333; */
+    border-bottom: 15px solid rgb(35, 160, 35);
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    /* background: linear-gradient(#87CEEB, #E0F6FF); */
+    background-image: url('../imagens/bg_jerusalem.jpeg');
+}
+
+.pipe {
+    position: absolute; /* para trabalhar independente da outra*/
+    bottom: 0;
+    width: 80px;
+    animation: pipe-animation 1.5s infinite linear;
+}
+
+.mario {
+    width: 150px;
+    position: absolute;
+    bottom: 0;
+    
+}
+
+.clouds {
+    position: absolute;
+    top: 50px;
+    width: 500px;
+    animation: clouds-animation 15s infinite linear;
+}
+
+.score {
+    font-size: larger;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    background-color: #66CDAA;
+    text-align: center;
+}
+ .score span {
+    padding-left: 10px;
+    color: brown;
+}
+
+.jump {
+    animation: jump 500ms ease-out;
+}
+
+.paused {
+    animation-play-state: paused;
+  }
+
+@keyframes pipe-animation {
+    from {
+        right: 0;
+    }
+    to{
+        right: 100%;
+    }
+}
+
+@keyframes jump {
+    0% {
+        bottom: 0;
+    }
+    40% {
+        bottom: 180px;
+    }
+    50% {
+        bottom: 180px;
+    }
+    60% {
+        bottom: 180px;
+    }
+    100% {
+        bottom: 0;
+    }
+}
+
+@keyframes clouds-animation {
+     from {
+        right: -550px;
+     }
+     to {
+        right: 100%;
+     }
+}
+
+.centro {
+    height: 100px;
+    width: 100%;
+    /* background-color: rgba(0, 0, 0, .5); */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.conteudo {
+    height: 300px;
+    width: 400px;
+    background-color: #FFFFE0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    box-shadow: 2px 2px 50px 53px #7fecad;
+    opacity: 0;
+}
+
+.conteudo_pausado {
+    height: 300px;
+    width: 400px;
+    background-color: #FFFFE0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    box-shadow: 2px 2px 50px 53px #7fecad;
+    text-align: center;
+}
+
+.conteudo_pausado button {
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    border-color: #4B0082;
+    background-color: #4B0082;
+    color: #fff;
+    font-size: large;
+    margin-top: 30%;
+}
+
+
+
+.pergunta_especifica {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+    font-size: x-large;
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.pergunta_choose div {
+    padding: 5px;
+    font-size: large;
+    font-weight: bolder;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.pergunta_send {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.pergunta_send button {
+    width: 200px;
+    height: 50px;
+    border-radius: 20px;
+    border-color: #4B0082;
+    background-color: #4B0082;
+    color: #fff;
+    font-size: large;
+}
