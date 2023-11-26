@@ -155,7 +155,7 @@ function enviarResposta() {
 function iniciarJogo() {
     pipe.style.animationPlayState = 'running';
     div_centro.removeChild(document.querySelector(".conteudo_pausado"))
-    loopSetInerval = window.setInterval(loop, 10);
+    loopSetInerval = window.setInterval(loop, 0);
 }
 
 const main = () => {
