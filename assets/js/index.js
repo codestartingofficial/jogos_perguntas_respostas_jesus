@@ -205,3 +205,8 @@ document.addEventListener('keydown', jump);
 
 // Register touch event handlers
 document.addEventListener("touchstart", process_touchstart, false);
+window.addEventListener('touchstart', (e) => {
+    // user has a device and is using it
+    
+    alert("oi")
+  });
