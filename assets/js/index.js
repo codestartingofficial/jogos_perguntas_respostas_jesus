@@ -3,6 +3,7 @@ const pipe = document.querySelector('.pipe')
 const score = document.querySelector('.score')
 const id_pergunta_hidden = document.getElementById("id_pergunta");
 const button_enviar = document.getElementById("enviar_resposta");
+let loopSetInerval = null;
 
 let isJump = false;
 let marioPostionGlobal = 0;
@@ -32,11 +33,11 @@ const jump = () => {
         // }
         isJump = false;
         console.log(isJump)
-        
+
         if (gameRound) {
-            gameRound =false;
+            gameRound = false;
             marioPostionGlobal = +window.getComputedStyle(mario).bottom.replace('px', '');
-            if (marioPostionGlobal === 0 ) {
+            if (marioPostionGlobal === 0) {
                 // stopAninamtion(-50, marioPostionGlobal);
                 pipe.style.animationPlayState = 'paused';
                 gerarPergunta();
@@ -44,8 +45,7 @@ const jump = () => {
         }
     }, 500);
 }
-
-const loop = setInterval(() => {
+const loop = () => {
 
     const pipePosition = pipe.offsetLeft;
     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
@@ -54,22 +54,42 @@ const loop = setInterval(() => {
         stopAninamtion(pipePosition, marioPosition);
 
         gameOver = true
-        clearInterval(loop);
+        main();
         console.log(pipePosition)
     }
 
-    
-    if (pipePosition > 0 && pipePosition <= 120 && marioPosition > 80){
+
+    if (pipePosition > 0 && pipePosition <= 120 && marioPosition > 80) {
         gameRound = true;
     }
 
-}, 10);
+};
+// const loop = setInterval(() => {
 
-function stopAninamtion(pipePosition, marioPosition){
-    pipe.style.animation = 'none';
+//     const pipePosition = pipe.offsetLeft;
+//     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
+
+//     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
+//         stopAninamtion(pipePosition, marioPosition);
+
+//         gameOver = true
+//         clearInterval(loop);
+//         main();
+//         console.log(pipePosition)
+//     }
+
+
+//     if (pipePosition > 0 && pipePosition <= 120 && marioPosition > 80){
+//         gameRound = true;
+//     }
+
+// }, 10);
+
+function stopAninamtion(pipePosition, marioPosition) {
+    // pipe.style.animation = 'none';
     pipe.style.left = `${pipePosition}px`;
 
-    mario.style.animation = 'none';
+    // mario.style.animation = 'none';
     mario.style.bottom = `${marioPosition}px`;
 
     mario.src = './assets/imagens/game-over.png';
@@ -83,7 +103,7 @@ function getRandomInt(max) {
 
 function gerarPergunta() {
     pergunta_choose.innerHTML = "";
-    const pergunta_selecionada = results[getRandomInt(2)];
+    const pergunta_selecionada = results[getRandomInt(results.length)];
     pergunta_especifica.innerHTML = pergunta_selecionada.pergunta;
     id_pergunta_hidden.value = pergunta_selecionada.id;
     for (let index = 0; index < pergunta_selecionada.sugestoes.length; index++) {
@@ -93,7 +113,7 @@ function gerarPergunta() {
     div_conteudo.style.opacity = 1;
 }
 
-function gerarHtmlPergunta(param_title){
+function gerarHtmlPergunta(param_title) {
     let div = document.createElement("div");
     let input = document.createElement("input");
     let label = document.createElement("label");
@@ -112,7 +132,7 @@ function gerarHtmlPergunta(param_title){
     return div;
 }
 
-function enviarResposta(){
+function enviarResposta() {
     button_enviar.blur();
     const rd_pq_selc = document.querySelector('input[name=perguntas]:checked');
     if (rd_pq_selc != null && rd_pq_selc != "") {
@@ -123,13 +143,11 @@ function enviarResposta(){
             score.querySelector('div span').textContent = count;
             pipe.style.animationPlayState = 'running';
             div_conteudo.style.opacity = 0;
-        }else{
+        } else {
             alert("voce erro!!! GAME OVER");
             main();
         }
-
-        // div_centro.style.opacity = 0;
-    }else{
+    } else {
         alert("Preencha corretamente");
     }
 }
@@ -137,20 +155,22 @@ function enviarResposta(){
 function iniciarJogo() {
     pipe.style.animationPlayState = 'running';
     div_centro.removeChild(document.querySelector(".conteudo_pausado"))
+    loopSetInerval = window.setInterval(loop, 10);
 }
 
 const main = () => {
     pipe.style.animationPlayState = 'paused';
+    clearInterval(loopSetInerval);
     score.querySelector('div span').textContent = 0;
     div_conteudo.style.opacity = 0;
-    
+
     let div = document.createElement("div");
     let button = document.createElement("button");
 
     button.setAttribute("onclick", "iniciarJogo()");
     button.setAttribute("id", "iniciar_jogo");
     button.innerText = "INICIAR JOGO";
-    
+
     div.setAttribute("class", "conteudo_pausado")
     div.appendChild(button);
     div_centro.appendChild(div);
