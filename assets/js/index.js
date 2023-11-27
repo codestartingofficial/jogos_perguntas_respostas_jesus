@@ -145,6 +145,7 @@ function enviarResposta() {
             div_conteudo.style.opacity = 0;
         } else {
             alert("voce erro!!! GAME OVER");
+            
             main();
         }
     } else {
