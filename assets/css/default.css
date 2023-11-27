@@ -20,7 +20,17 @@
     position: absolute; /* para trabalhar independente da outra*/
     bottom: 0;
     width: 80px;
+}
+
+.pipe_animation {
     animation: pipe-animation 1.5s infinite linear;
+}
+
+.bomb {
+    position: absolute; /* para trabalhar independente da outra*/
+    bottom: 0;
+    width: 200px;
+    display: none;
 }
 
 .mario {

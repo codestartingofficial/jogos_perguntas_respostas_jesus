@@ -1,6 +1,7 @@
 const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
 const score = document.querySelector('.score')
+const bomb = document.querySelector('.bomb')
 const id_pergunta_hidden = document.getElementById("id_pergunta");
 const button_enviar = document.getElementById("enviar_resposta");
 let loopSetInerval = null;
@@ -86,15 +87,16 @@ const loop = () => {
 // }, 10);
 
 function stopAninamtion(pipePosition, marioPosition) {
+    bomb.style.display = "block";
     // pipe.style.animation = 'none';
     pipe.style.left = `${pipePosition}px`;
 
     // mario.style.animation = 'none';
     mario.style.bottom = `${marioPosition}px`;
 
-    mario.src = './assets/imagens/game-over.png';
-    mario.style.width = '75px';
-    mario.style.marginLeft = '50px'
+    // mario.src = './assets/imagens/game-over.png';
+    // mario.style.width = '75px';
+    // mario.style.marginLeft = '50px'
 }
 
 function getRandomInt(max) {
@@ -154,13 +156,20 @@ function enviarResposta() {
 }
 
 function iniciarJogo() {
+    
     pipe.style.animationPlayState = 'running';
+    pipe.style.left = '';
+    mario.style.bottom = '';
+    bomb.style.display = "none";
+    pipe.classList.add('pipe_animation');
     div_centro.removeChild(document.querySelector(".conteudo_pausado"))
     loopSetInerval = window.setInterval(loop, 0);
 }
 
 const main = () => {
+    
     pipe.style.animationPlayState = 'paused';
+    pipe.classList.remove('pipe_animation');
     clearInterval(loopSetInerval);
     score.querySelector('div span').textContent = 0;
     div_conteudo.style.opacity = 0;
@@ -177,33 +186,8 @@ const main = () => {
     div_centro.appendChild(div);
 }
 
-// touchstart handler
-function process_touchstart(ev) {
-    // Use the event's data to call out to the appropriate gesture handlers
-    switch (ev.touches.length) {
-      case 1:
-        handle_one_touch(ev);
-        alert("oi")
-        break;
-      case 2:
-        handle_two_touches(ev);
-        alert("oi 2")
-        break;
-      case 3:
-        handle_three_touches(ev);
-        alert("oi 3")
-        break;
-      default:
-        gesture_not_supported(ev);
-        alert("defayuk")
-        break;
-    }
-  }
-
 main();
 
+// Register events
 document.addEventListener('keydown', jump);
-
-// Register touch event handlers
-document.addEventListener("touchstart", process_touchstart, false);
 window.addEventListener('touchstart', jump);
