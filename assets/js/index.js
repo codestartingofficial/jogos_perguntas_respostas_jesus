@@ -55,7 +55,7 @@ const loop = () => {
         stopAninamtion(pipePosition, marioPosition);
 
         gameOver = true
-        main();
+        main(true);
         console.log(pipePosition)
     }
 
@@ -146,9 +146,7 @@ function enviarResposta() {
             pipe.style.animationPlayState = 'running';
             div_conteudo.style.opacity = 0;
         } else {
-            alert("voce erro!!! GAME OVER");
-            
-            main();
+            main(true);
         }
     } else {
         alert("Preencha corretamente");
@@ -166,7 +164,25 @@ function iniciarJogo() {
     loopSetInerval = window.setInterval(loop, 0);
 }
 
-const main = () => {
+const createHTMLMessageStatus = (mensagem) => {
+    let divMensagemStatus = document.createElement("div");
+
+    divMensagemStatus.setAttribute("class", "message_status")
+    divMensagemStatus.innerHTML = mensagem;
+    return divMensagemStatus;
+}
+
+// const createHTMLMessagePontuacao = (pontuacao) => {
+//     let divMensagemStatusPontuacao = document.createElement("div");
+//     let span = document.createElement("span");
+
+//     divMensagemStatusPontuacao.setAttribute("class", "message-status-pontuacao")
+//     span.innerHTML = "A sua pontuação foi" + pontuacao;
+//     divMensagemStatusPontuacao.appendChild(span);
+//     return divMensagemStatusPontuacao;
+// }
+
+const main = (isGameOver) => {
     
     pipe.style.animationPlayState = 'paused';
     pipe.classList.remove('pipe_animation');
@@ -183,6 +199,11 @@ const main = () => {
 
     div.setAttribute("class", "conteudo_pausado")
     div.appendChild(button);
+    if (isGameOver)
+        div.appendChild(createHTMLMessageStatus("Você perdeu... Game Over."));
+    else
+    div.appendChild(createHTMLMessageStatus("Jogos de Perguntas e repostas sobre a Biblia"));    
+    
     div_centro.appendChild(div);
 }
 
