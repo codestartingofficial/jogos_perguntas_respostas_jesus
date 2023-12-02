@@ -160,13 +160,13 @@
 
 .conteudo_pausado button {
     width: 200px;
-    height: 50px;
+    height: 30px;
     border-radius: 20px;
     border-color: #4B0082;
     background-color: #4B0082;
     color: #fff;
     font-size: large;
-    margin-top: 10%;
+    margin-top: 3;
 }
 
 .celeiros_cristo_imagens {
