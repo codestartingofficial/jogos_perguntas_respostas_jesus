@@ -2,6 +2,9 @@ const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
 const score = document.querySelector('.score')
 const bomb = document.querySelector('.bomb')
+const moldura_div_score = document.querySelector('.moldura_div_score')
+const moldura_div_username = document.querySelector('.moldura_div_username')
+
 const id_pergunta_hidden = document.getElementById("id_pergunta");
 const button_enviar = document.getElementById("enviar_resposta");
 let loopSetInerval = null;
@@ -159,7 +162,7 @@ function enviarResposta() {
         if (pq_selec_user.resposta) {
             count = count + 10;
             perguntasRespondidas.push(parseInt(id_pergunta_hidden.value));
-            score.querySelector('div span').textContent = count;
+            moldura_div_score.innerHTML = count;
             pipe.style.animationPlayState = 'running';
             div_conteudo.style.opacity = 0;
         } else {
@@ -177,6 +180,7 @@ function iniciarJogo() {
     mario.style.bottom = '';
     bomb.style.display = "none";
     pipe.classList.add('pipe_animation');
+    moldura_div_score.innerHTML = 0;
     // div_centro.removeChild(document.querySelector(".conteudo_pausado"))
     div_conteudo_pausado.style.opacity = 0;
     loopSetInerval = window.setInterval(loop, 0);
@@ -205,7 +209,6 @@ const main = (isGameOver) => {
     pipe.style.animationPlayState = 'paused';
     pipe.classList.remove('pipe_animation');
     clearInterval(loopSetInerval);
-    score.querySelector('div span').textContent = 0;
     div_conteudo.style.opacity = 0;
     div_conteudo.style.zIndex = 0;
     div_conteudo_pausado.style.opacity = 2;

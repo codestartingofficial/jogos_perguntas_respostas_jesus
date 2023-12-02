@@ -27,7 +27,7 @@
 .game-board {
     width: 100%;
     height: 100%;
-    /* border:  1px solid #333; */
+    border:  1px solid #333;
     border-bottom: 15px solid rgb(35, 160, 35);
     margin: 0 auto;
     position: relative;
@@ -85,7 +85,32 @@
 
 .paused {
     animation-play-state: paused;
-  }
+}
+.moldura_div {
+    background-image: url(../imagens/moldura.png);
+    background-repeat: round;
+    border-radius: 5%;
+    top: 6%;
+    left: 1%;
+    position: absolute;
+    width: 300px;
+    min-height: 150px;
+    padding: 40px;
+    font-size: x-large;
+    z-index: 2;
+}
+
+.moldura_div div {
+    color: #fff;
+}
+
+.moldura_div_score {
+    color: darkorange;
+}
+.moldura_div_username {
+    color: darkorange;
+    text-transform: uppercase;
+}
 
 @keyframes pipe-animation {
     from {
@@ -200,10 +225,11 @@
 
 .pergunta_send button {
     width: 200px;
-    height: 50px;
+    height: 30px;
     border-radius: 20px;
     border-color: #4B0082;
     background-color: #4B0082;
     color: #fff;
     font-size: large;
+    margin-top: 3;
 }
