@@ -5,6 +5,7 @@ const bomb = document.querySelector('.bomb')
 const id_pergunta_hidden = document.getElementById("id_pergunta");
 const button_enviar = document.getElementById("enviar_resposta");
 let loopSetInerval = null;
+let perguntasRespondidas = [];
 
 let isJump = false;
 let marioPostionGlobal = 0;
@@ -98,22 +99,36 @@ function stopAninamtion(pipePosition, marioPosition) {
     // mario.style.marginLeft = '50px'
 }
 
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
+function getRandomInt(min, max, exclude) {
+    let random;
+    if (perguntasRespondidas && results && perguntasRespondidas.length === results.length) {
+        return -1;   
+    } else {
+        while (!random) {
+            const x = Math.floor(Math.random() * (max - min + 1)) + min;
+            if (exclude.indexOf(x) === -1) random = x;
+        }
+        return random;
+    }
 }
 
 function gerarPergunta() {
     pergunta_choose.innerHTML = "";
-    const pergunta_selecionada = results[getRandomInt(results.length)];
-    pergunta_especifica.innerHTML = pergunta_selecionada.pergunta;
-    id_pergunta_hidden.value = pergunta_selecionada.id;
-    for (let index = 0; index < pergunta_selecionada.sugestoes.length; index++) {
-        const element = pergunta_selecionada.sugestoes[index];
-        pergunta_choose.appendChild(gerarHtmlPergunta(element.title));
+    const sortearPergunta = getRandomInt(1, results.length, perguntasRespondidas)
+    if (sortearPergunta && sortearPergunta === -1) {
+        alert("Parabéns você finalizou todas as perguntas");
+    } else {
+        const pergunta_selecionada = results.find(x => x.id === sortearPergunta);
+        pergunta_especifica.innerHTML = pergunta_selecionada.pergunta;
+        id_pergunta_hidden.value = pergunta_selecionada.id;
+        for (let index = 0; index < pergunta_selecionada.sugestoes.length; index++) {
+            const element = pergunta_selecionada.sugestoes[index];
+            pergunta_choose.appendChild(gerarHtmlPergunta(element.title));
+        }
+        div_conteudo_pausado.style.zIndex = 0
+        div_conteudo.style.opacity = 1;
+        div_conteudo.style.zIndex = 1
     }
-    div_conteudo_pausado.style.zIndex = 0
-    div_conteudo.style.opacity = 1;
-    div_conteudo.style.zIndex = 1
 }
 
 function gerarHtmlPergunta(param_title) {
@@ -143,6 +158,7 @@ function enviarResposta() {
         const pq_selec_user = pq_selec.sugestoes.find(c => c.title == rd_pq_selc.id);
         if (pq_selec_user.resposta) {
             count = count + 10;
+            perguntasRespondidas.push(parseInt(id_pergunta_hidden.value));
             score.querySelector('div span').textContent = count;
             pipe.style.animationPlayState = 'running';
             div_conteudo.style.opacity = 0;
@@ -164,7 +180,6 @@ function iniciarJogo() {
     // div_centro.removeChild(document.querySelector(".conteudo_pausado"))
     div_conteudo_pausado.style.opacity = 0;
     loopSetInerval = window.setInterval(loop, 0);
-    mario.src = `./assets/imagens/${swiper.activeIndex}.gif`
 }
 
 const createHTMLMessageStatus = (mensagem) => {
@@ -207,6 +222,7 @@ const main = (isGameOver) => {
     // div_conteudo_pausado.appendChild(button);
     if (isGameOver) {
         message_status.innerHTML = "Você perdeu... não fica triste!! Vamos estudar novamente?"
+        bomb.src = `./assets/imagens/bomb/${getRandomInt(10)}.gif`
     }
 
 

@@ -11,6 +11,7 @@
             width: 250px;
             height: 150px;
         }
+
         .swiper img {
             position: relative;
         }
@@ -26,7 +27,7 @@
         <img src="./assets/imagens/clouds.png" class="clouds" />
         <img src="./assets/imagens/0.gif" class="mario" />
         <img src="./assets/imagens/pipe.png" alt="" class="pipe" />
-        <img src="./assets/imagens/bomb.gif" class="bomb" />
+        <img src="./assets/imagens/bomb/1.gif" class="bomb" />
         <!-- <img src="./assets/imagens/logo_sem_texto_preto_transparente_v2_300x404.jpg" class="celeiros_cristo_imagens" /> -->
     </div>
 
@@ -87,6 +88,9 @@
             scrollbar: {
                 el: '.swiper-scrollbar',
             },
+        });
+        swiper.on('slideChangeTransitionEnd', function (e) {
+            mario.src = `./assets/imagens/${swiper.realIndex}.gif`
         });
     </script>
 </body>
