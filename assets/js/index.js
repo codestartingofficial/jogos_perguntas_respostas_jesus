@@ -118,8 +118,7 @@ function gerarPergunta() {
     if (sortearPergunta && sortearPergunta === -1) {
         alert("Parabéns você finalizou todas as perguntas");
     } else {
-        console.log(sortearPergunta);
-        const pergunta_selecionada = results.find(x => x.id === 35);
+        const pergunta_selecionada = results.find(x => x.id === sortearPergunta);
         pergunta_especifica.innerHTML = pergunta_selecionada.pergunta;
         id_pergunta_hidden.value = pergunta_selecionada.id;
         for (let index = 0; index < pergunta_selecionada.sugestoes.length; index++) {
@@ -223,7 +222,7 @@ const main = (isGameOver) => {
     // div_conteudo_pausado.appendChild(button);
     if (isGameOver) {
         message_status.innerHTML = "Você perdeu... não fica triste!! Vamos estudar novamente?"
-        bomb.src = `./assets/imagens/bomb/${getRandomInt(10)}.gif`
+        bomb.src = `./assets/imagens/bomb/${getRandomInt(1, 10,[])}.gif`
     }
 
 
