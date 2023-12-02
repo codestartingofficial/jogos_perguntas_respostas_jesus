@@ -118,7 +118,8 @@ function gerarPergunta() {
     if (sortearPergunta && sortearPergunta === -1) {
         alert("Parabéns você finalizou todas as perguntas");
     } else {
-        const pergunta_selecionada = results.find(x => x.id === sortearPergunta);
+        console.log(sortearPergunta);
+        const pergunta_selecionada = results.find(x => x.id === 35);
         pergunta_especifica.innerHTML = pergunta_selecionada.pergunta;
         id_pergunta_hidden.value = pergunta_selecionada.id;
         for (let index = 0; index < pergunta_selecionada.sugestoes.length; index++) {
