@@ -15,8 +15,7 @@ const pergunta_choose = document.querySelector(".pergunta_choose")
 const div_conteudo = document.querySelector(".conteudo")
 const div_conteudo_pausado = document.querySelector(".conteudo_pausado")
 const div_centro = document.querySelector(".centro")
-
-
+const message_status = document.querySelector('.message_status');
 
 let count = 0;
 let gameOver = false;
@@ -112,7 +111,9 @@ function gerarPergunta() {
         const element = pergunta_selecionada.sugestoes[index];
         pergunta_choose.appendChild(gerarHtmlPergunta(element.title));
     }
+    div_conteudo_pausado.style.zIndex = 0
     div_conteudo.style.opacity = 1;
+    div_conteudo.style.zIndex = 1
 }
 
 function gerarHtmlPergunta(param_title) {
@@ -154,14 +155,16 @@ function enviarResposta() {
 }
 
 function iniciarJogo() {
-    
+
     pipe.style.animationPlayState = 'running';
     pipe.style.left = '';
     mario.style.bottom = '';
     bomb.style.display = "none";
     pipe.classList.add('pipe_animation');
-    div_centro.removeChild(document.querySelector(".conteudo_pausado"))
+    // div_centro.removeChild(document.querySelector(".conteudo_pausado"))
+    div_conteudo_pausado.style.opacity = 0;
     loopSetInerval = window.setInterval(loop, 0);
+    mario.src = `./assets/imagens/${swiper.activeIndex}.gif`
 }
 
 const createHTMLMessageStatus = (mensagem) => {
@@ -183,28 +186,31 @@ const createHTMLMessageStatus = (mensagem) => {
 // }
 
 const main = (isGameOver) => {
-    
+
     pipe.style.animationPlayState = 'paused';
     pipe.classList.remove('pipe_animation');
     clearInterval(loopSetInerval);
     score.querySelector('div span').textContent = 0;
     div_conteudo.style.opacity = 0;
-
-    let div = document.createElement("div");
-    let button = document.createElement("button");
-
-    button.setAttribute("onclick", "iniciarJogo()");
-    button.setAttribute("id", "iniciar_jogo");
-    button.innerText = "INICIAR JOGO";
-
-    div.setAttribute("class", "conteudo_pausado")
-    div.appendChild(button);
-    if (isGameOver)
-        div.appendChild(createHTMLMessageStatus("Você perdeu... Game Over."));
-    else
-    div.appendChild(createHTMLMessageStatus("Jogos de Perguntas e repostas sobre a Biblia"));    
+    div_conteudo.style.zIndex = 0;
+    div_conteudo_pausado.style.opacity = 2;
+    div_conteudo_pausado.style.zIndex = 1
     
-    div_centro.appendChild(div);
+    
+    // let button = document.createElement("button");
+    // button.setAttribute("onclick", "iniciarJogo()");
+    // button.setAttribute("id", "iniciar_jogo");
+    // button.innerText = "INICIAR JOGO";
+
+
+    // div_conteudo_pausado.setAttribute("class", "conteudo_pausado")
+    // div_conteudo_pausado.appendChild(button);
+    if (isGameOver) {
+        message_status.innerHTML = "Você perdeu... não fica triste!! Vamos estudar novamente?"
+    }
+
+
+    div_centro.appendChild(div_conteudo_pausado);
 }
 
 main();

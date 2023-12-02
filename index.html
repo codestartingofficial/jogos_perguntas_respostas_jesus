@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=500, initial-scale=1.0">
     <title>Jogos Perguntas e Respostas de Jesus</title>
     <link rel="stylesheet" href="./assets/css/default.css">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        .swiper {
+            width: 250px;
+            height: 150px;
+        }
+        .swiper img {
+            position: relative;
+        }
+    </style>
 </head>
 
 <body>
 
     <div class="game-board">
         <div class="score">PONTUAÇAO:<span>0</span><br>
-            Version: 4
+            Version: 5
         </div>
         <img src="./assets/imagens/clouds.png" class="clouds" />
-        <img src="./assets/imagens/smiliguindo1.gif" class="mario" />
+        <img src="./assets/imagens/0.gif" class="mario" />
         <img src="./assets/imagens/pipe.png" alt="" class="pipe" />
         <img src="./assets/imagens/bomb.gif" class="bomb" />
         <!-- <img src="./assets/imagens/logo_sem_texto_preto_transparente_v2_300x404.jpg" class="celeiros_cristo_imagens" /> -->
@@ -32,7 +41,6 @@
                         <input type="radio" id="pergunta1" name="perguntas" value="jose" />
                         <label for="pergunta1">Jose</label>
                     </div> -->
-
             </div>
             <div class="pergunta_send">
                 <button id="enviar_resposta" onclick="enviarResposta()">Enviar Resposta</button>
@@ -40,8 +48,47 @@
         </div>
     </div>
 
+    <div class="conteudo_pausado">
+        <!-- Slider main container -->
+        <div class="swiper">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide"><img src="./assets/imagens/0.gif" class="mario" /></div>
+                <div class="swiper-slide"><img src="./assets/imagens/1.gif" class="mario" /></div>
+                <div class="swiper-slide"><img src="./assets/imagens/2.gif" class="mario" /></div>
+            </div>
+            <!-- If we need pagination -->
+            <div class="swiper-pagination"></div>
+
+            <!-- If we need navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+
+            <!-- If we need scrollbar -->
+            <div class="swiper-scrollbar"></div>
+        </div>
+        <button onclick="iniciarJogo()" id="iniciar_jogo">INICIAR JOGO</button>
+        <div class="message_status">
+            Jogos de Perguntas e repostas sobre a Biblia
+        </div>
+    </div>
+
     <script type="text/javascript" src="./assets/js/data.js" defer></script>
     <script src="./assets/js/index.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script type="text/javascript">
+        const swiper = new Swiper('.swiper', {
+            loop: true,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            scrollbar: {
+                el: '.swiper-scrollbar',
+            },
+        });
+    </script>
 </body>
 
 </html>
