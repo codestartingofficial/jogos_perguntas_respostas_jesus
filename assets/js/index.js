@@ -180,8 +180,8 @@ function iniciarJogo() {
     mario.style.bottom = '';
     bomb.style.display = "none";
     pipe.classList.add('pipe_animation');
+    count = 0;
     moldura_div_score.innerHTML = 0;
-    // div_centro.removeChild(document.querySelector(".conteudo_pausado"))
     div_conteudo_pausado.style.opacity = 0;
     clearInterval(loopSetInerval);
     loopSetInerval = window.setInterval(loop, 10);
