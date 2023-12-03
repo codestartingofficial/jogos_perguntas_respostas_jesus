@@ -34,6 +34,7 @@
     overflow: hidden;
     /* background: linear-gradient(#87CEEB, #E0F6FF); */
     background-image: url('../imagens/bg_jerusalem.jpeg');
+    /* z-index: -1000; */
 }
 
 .pipe {
@@ -65,18 +66,7 @@
     top: 50px;
     width: 500px;
     animation: clouds-animation 15s infinite linear;
-}
-
-.score {
-    font-size: larger;
-    font-family: 'Times New Roman', Times, serif;
-    font-weight: bolder;
-    background-color: #66CDAA;
-    text-align: center;
-}
- .score span {
-    padding-left: 10px;
-    color: brown;
+    z-index: -999;
 }
 
 .jump {
@@ -90,14 +80,14 @@
     background-image: url(../imagens/moldura.png);
     background-repeat: round;
     border-radius: 5%;
-    top: 6%;
+    top: 1%;
     left: 1%;
     position: absolute;
-    width: 300px;
-    min-height: 150px;
+    width: 250px;
+    min-height: 100px;
     padding: 40px;
-    font-size: x-large;
-    z-index: 2;
+    font-size: large;
+    /* z-index: 2; */
 }
 
 .moldura_div div {
@@ -208,6 +198,7 @@
     font-size: x-large;
     font-weight: bolder;
     font-family: 'Times New Roman', Times, serif;
+    font-size: large;
 }
 
 .pergunta_choose div {

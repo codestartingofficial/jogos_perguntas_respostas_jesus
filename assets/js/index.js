@@ -1,6 +1,5 @@
 const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
-const score = document.querySelector('.score')
 const bomb = document.querySelector('.bomb')
 const moldura_div_score = document.querySelector('.moldura_div_score')
 const moldura_div_username = document.querySelector('.moldura_div_username')
@@ -38,30 +37,31 @@ const jump = () => {
         isJump = false;
         console.log(isJump)
 
-        if (gameRound) {
-            gameRound = false;
+            
             marioPostionGlobal = +window.getComputedStyle(mario).bottom.replace('px', '');
             if (marioPostionGlobal === 0) {
-                // stopAninamtion(-50, marioPostionGlobal);
-                pipe.style.animationPlayState = 'paused';
-                gerarPergunta();
+                if (gameRound) {
+                     // stopAninamtion(-50, marioPostionGlobal);
+                    pipe.style.animationPlayState = 'paused';
+                    gerarPergunta(); 
+                    gameRound = false;
+                }
             }
-        }
     }, 500);
 }
 const loop = () => {
 
     const pipePosition = pipe.offsetLeft;
     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
-
+    console.log(pipePosition);
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
         stopAninamtion(pipePosition, marioPosition);
 
         gameOver = true
+        clearInterval(loopSetInerval);
+        clearInterval(loop);
         main(true);
-        console.log(pipePosition)
     }
-
 
     if (pipePosition > 0 && pipePosition <= 120 && marioPosition > 80) {
         gameRound = true;
@@ -183,7 +183,8 @@ function iniciarJogo() {
     moldura_div_score.innerHTML = 0;
     // div_centro.removeChild(document.querySelector(".conteudo_pausado"))
     div_conteudo_pausado.style.opacity = 0;
-    loopSetInerval = window.setInterval(loop, 0);
+    clearInterval(loopSetInerval);
+    loopSetInerval = window.setInterval(loop, 10);
 }
 
 const createHTMLMessageStatus = (mensagem) => {
