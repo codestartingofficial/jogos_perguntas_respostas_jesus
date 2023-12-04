@@ -25,16 +25,11 @@
             <div>
                 <span>PONTUAÇÃO:</span> <span class="moldura_div_score">0</span>
             </div>
-            <!-- <div>
-                <span>NOME:</span> <span class="moldura_div_username">usuário</span>
-            </div> -->
-            <!-- <img src="./assets/imagens/moldura.png" class="moldura" /> -->
         </div>
         <img src="./assets/imagens/clouds.png" class="clouds" />
         <img src="./assets/imagens/0.gif" class="mario" />
         <img src="./assets/imagens/pipe.png" alt="" class="pipe" />
         <img src="./assets/imagens/bomb/1.gif" class="bomb" />
-        <!-- <img src="./assets/imagens/logo_sem_texto_preto_transparente_v2_300x404.jpg" class="celeiros_cristo_imagens" /> -->
     </div>
 
     <div class="centro">
@@ -56,24 +51,19 @@
     </div>
 
     <div class="conteudo_pausado">
-        <!-- Slider main container -->
         <div class="swiper">
-            <!-- Additional required wrapper -->
             <div class="swiper-wrapper">
-                <!-- Slides -->
                 <div class="swiper-slide"><img src="./assets/imagens/0.gif" class="mario" /></div>
                 <div class="swiper-slide"><img src="./assets/imagens/1.gif" class="mario" /></div>
                 <div class="swiper-slide"><img src="./assets/imagens/2.gif" class="mario" /></div>
                 <div class="swiper-slide"><img src="./assets/imagens/3.gif" class="mario" /></div>
+                <div class="swiper-slide"><img src="./assets/imagens/4.gif" class="mario" /></div>
             </div>
-            <!-- If we need pagination -->
             <div class="swiper-pagination"></div>
 
-            <!-- If we need navigation buttons -->
             <div class="swiper-button-prev"></div>
             <div class="swiper-button-next"></div>
 
-            <!-- If we need scrollbar -->
             <div class="swiper-scrollbar"></div>
         </div>
         <button onclick="iniciarJogo()" id="iniciar_jogo">INICIAR JOGO</button>
@@ -88,6 +78,10 @@
     <script type="text/javascript">
         const swiper = new Swiper('.swiper', {
             loop: true,
+            spaceBetween: 30,
+            centeredSlides: true,
+            autoplay:1000,
+            autoplayDisableOnInteraction:true,
             navigation: {
                 nextEl: '.swiper-button-next',
                 prevEl: '.swiper-button-prev',

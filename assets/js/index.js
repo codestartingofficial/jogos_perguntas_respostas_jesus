@@ -3,13 +3,13 @@ const pipe = document.querySelector('.pipe')
 const bomb = document.querySelector('.bomb')
 const moldura_div_score = document.querySelector('.moldura_div_score')
 const moldura_div_username = document.querySelector('.moldura_div_username')
-
+const iniciar_jogo = document.getElementById('iniciar_jogo');
 const id_pergunta_hidden = document.getElementById("id_pergunta");
 const button_enviar = document.getElementById("enviar_resposta");
 let loopSetInerval = null;
 let perguntasRespondidas = [];
 
-let isJump = false;
+let isStopped = false;
 let marioPostionGlobal = 0;
 
 // Variaveis jogos perguntas e respostas
@@ -25,41 +25,33 @@ let gameOver = false;
 let gameRound = false;
 
 const jump = () => {
-    mario.classList.add('jump');
-    isJump = true;
-    console.log(isJump);
-    setTimeout(() => {
-        mario.classList.remove('jump');
-        // if (!gameOver) {
-        //     count = count + 1;
-        //     score.querySelector('div span').textContent = count;
-        // }
-        isJump = false;
-        console.log(isJump)
-
-            
+    if (!isStopped) {
+        console.log('jump');
+        mario.classList.add('jump');
+        setTimeout(() => {
+            mario.classList.remove('jump');
             marioPostionGlobal = +window.getComputedStyle(mario).bottom.replace('px', '');
             if (marioPostionGlobal === 0) {
                 if (gameRound) {
-                     // stopAninamtion(-50, marioPostionGlobal);
+                    isStopped = true;
                     pipe.style.animationPlayState = 'paused';
-                    gerarPergunta(); 
+                    gerarPergunta();
                     gameRound = false;
                 }
             }
-    }, 500);
+        }, 500);
+    }
 }
 const loop = () => {
 
     const pipePosition = pipe.offsetLeft;
     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
-    console.log(pipePosition);
+    // console.log(pipePosition);
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
         stopAninamtion(pipePosition, marioPosition);
 
         gameOver = true
         clearInterval(loopSetInerval);
-        clearInterval(loop);
         main(true);
     }
 
@@ -68,44 +60,17 @@ const loop = () => {
     }
 
 };
-// const loop = setInterval(() => {
-
-//     const pipePosition = pipe.offsetLeft;
-//     const marioPosition = +window.getComputedStyle(mario).bottom.replace('px', '');
-
-//     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
-//         stopAninamtion(pipePosition, marioPosition);
-
-//         gameOver = true
-//         clearInterval(loop);
-//         main();
-//         console.log(pipePosition)
-//     }
-
-
-//     if (pipePosition > 0 && pipePosition <= 120 && marioPosition > 80){
-//         gameRound = true;
-//     }
-
-// }, 10);
 
 function stopAninamtion(pipePosition, marioPosition) {
     bomb.style.display = "block";
-    // pipe.style.animation = 'none';
     pipe.style.left = `${pipePosition}px`;
-
-    // mario.style.animation = 'none';
     mario.style.bottom = `${marioPosition}px`;
-
-    // mario.src = './assets/imagens/game-over.png';
-    // mario.style.width = '75px';
-    // mario.style.marginLeft = '50px'
 }
 
 function getRandomInt(min, max, exclude) {
     let random;
     if (perguntasRespondidas && results && perguntasRespondidas.length === results.length) {
-        return -1;   
+        return -1;
     } else {
         while (!random) {
             const x = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -165,6 +130,7 @@ function enviarResposta() {
             moldura_div_score.innerHTML = count;
             pipe.style.animationPlayState = 'running';
             div_conteudo.style.opacity = 0;
+            isStopped = false;
         } else {
             main(true);
         }
@@ -174,17 +140,19 @@ function enviarResposta() {
 }
 
 function iniciarJogo() {
-
+    console.log('iniciar')
+    pipe.classList.add('pipe_animation');
     pipe.style.animationPlayState = 'running';
     pipe.style.left = '';
     mario.style.bottom = '';
     bomb.style.display = "none";
-    pipe.classList.add('pipe_animation');
+    
     count = 0;
     moldura_div_score.innerHTML = 0;
     div_conteudo_pausado.style.opacity = 0;
     clearInterval(loopSetInerval);
     loopSetInerval = window.setInterval(loop, 10);
+    iniciar_jogo.blur();
 }
 
 const createHTMLMessageStatus = (mensagem) => {
@@ -214,8 +182,7 @@ const main = (isGameOver) => {
     div_conteudo.style.zIndex = 0;
     div_conteudo_pausado.style.opacity = 2;
     div_conteudo_pausado.style.zIndex = 1
-    
-    
+    isStopped = false;
     // let button = document.createElement("button");
     // button.setAttribute("onclick", "iniciarJogo()");
     // button.setAttribute("id", "iniciar_jogo");
@@ -226,15 +193,13 @@ const main = (isGameOver) => {
     // div_conteudo_pausado.appendChild(button);
     if (isGameOver) {
         message_status.innerHTML = "Você perdeu... não fica triste!! Vamos estudar novamente?"
-        bomb.src = `./assets/imagens/bomb/${getRandomInt(1, 10,[])}.gif`
+        bomb.src = `./assets/imagens/bomb/${getRandomInt(1, 10, [])}.gif`
     }
-
-
     div_centro.appendChild(div_conteudo_pausado);
 }
 
 main();
 
 // Register events
-document.addEventListener('keydown', jump);
+window.addEventListener('keydown', jump);
 window.addEventListener('touchstart', jump);
