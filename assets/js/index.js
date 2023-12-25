@@ -33,7 +33,7 @@ const jump = () => {
             marioPostionGlobal = +window.getComputedStyle(mario).bottom.replace('px', '');
             if (marioPostionGlobal === 0) {
                 if (gameRound) {
-                    removeEventsPlay();
+                    removeEventsListener();
                     isStopped = true;
                     pipe.style.animationPlayState = 'paused';
                     gerarPergunta();
@@ -50,7 +50,7 @@ const loop = () => {
     // console.log(pipePosition);
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
         stopAninamtion(pipePosition, marioPosition);
-        removeEventsPlay();
+        removeEventsListener();
         gameOver = true
         clearInterval(loopSetInerval);
         main(true);
@@ -132,6 +132,7 @@ function enviarResposta() {
             pipe.style.animationPlayState = 'running';
             div_conteudo.style.opacity = 0;
             isStopped = false;
+            addEventsListener();
         } else {
             main(true);
         }
@@ -154,7 +155,7 @@ function iniciarJogo() {
     clearInterval(loopSetInerval);
     loopSetInerval = window.setInterval(loop, 10);
     iniciar_jogo.blur();
-    window.addEventListener('keydown', jump);
+    addEventsListener();
 }
 
 const createHTMLMessageStatus = (mensagem) => {
@@ -165,9 +166,15 @@ const createHTMLMessageStatus = (mensagem) => {
     return divMensagemStatus;
 }
 
-const removeEventsPlay = () => {
+const removeEventsListener = () => {
     window.removeEventListener('keydown', jump);
-    //window.addEventListener('touchstart', jump);
+    window.removeEventListener('touchstart', jump);
+}
+
+const addEventsListener = () => {
+    // Register events
+    window.addEventListener('keydown', jump);
+    window.addEventListener('touchstart', jump);
 }
 
 // const createHTMLMessagePontuacao = (pontuacao) => {
@@ -207,6 +214,3 @@ const main = (isGameOver) => {
 
 main();
 
-// Register events
-window.addEventListener('keydown', jump);
-window.addEventListener('touchstart', jump);
