@@ -33,6 +33,7 @@ const jump = () => {
             marioPostionGlobal = +window.getComputedStyle(mario).bottom.replace('px', '');
             if (marioPostionGlobal === 0) {
                 if (gameRound) {
+                    removeEventsPlay();
                     isStopped = true;
                     pipe.style.animationPlayState = 'paused';
                     gerarPergunta();
@@ -49,7 +50,7 @@ const loop = () => {
     // console.log(pipePosition);
     if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
         stopAninamtion(pipePosition, marioPosition);
-
+        removeEventsPlay();
         gameOver = true
         clearInterval(loopSetInerval);
         main(true);
@@ -153,6 +154,7 @@ function iniciarJogo() {
     clearInterval(loopSetInerval);
     loopSetInerval = window.setInterval(loop, 10);
     iniciar_jogo.blur();
+    window.addEventListener('keydown', jump);
 }
 
 const createHTMLMessageStatus = (mensagem) => {
@@ -161,6 +163,11 @@ const createHTMLMessageStatus = (mensagem) => {
     divMensagemStatus.setAttribute("class", "message_status")
     divMensagemStatus.innerHTML = mensagem;
     return divMensagemStatus;
+}
+
+const removeEventsPlay = () => {
+    window.removeEventListener('keydown', jump);
+    //window.addEventListener('touchstart', jump);
 }
 
 // const createHTMLMessagePontuacao = (pontuacao) => {
